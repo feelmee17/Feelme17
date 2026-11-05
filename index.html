@@ -1,108 +1,657 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>feelme - Cerita di sini, temukan maknanya</title>
-    <!-- Tailwind CSS untuk styling modern -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        pastelBlue: '#E2ECF8',
-                        pastelYellow: '#FEF3C7',
-                        navyText: '#2C3E50',
-                        softYellowBtn: '#FDE68A'
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Google Fonts: Quicksand -->
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Quicksand', sans-serif;
-            background-color: #F4F8FC;
-            color: #2C3E50;
-        }
-        .chat-container::-webkit-scrollbar {
-            width: 6px;
-        }
-        .chat-container::-webkit-scrollbar-thumb {
-            background-color: #cbd5e1;
-            border-radius: 10px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#eef4fb">
+<title>FeelMe · Al-Qur'an, Zikir & Ruang Curhat Islami</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Fraunces:opsz,wght@9..144,600&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Palet warna pastel berdasarkan desain FeelMe */
+  --bg: #eef4fb; /* Biru muda krim lembut khas latar ilustrasi */
+  --card: #fdfbf7; /* Krim hangat lembut untuk kotak/kartu */
+  --ink: #486581; /* Biru denim gelap untuk teks utama */
+  --mute: #7b96b2; /* Biru medium soft untuk deskripsi/teks sekunder */
+  --line: rgba(72, 101, 129, 0.15);
+  --gold: #f4a228; /* Kuning keemasan cerah khas bintang/tombol */
+  --blue-brand: #5b7bb2; /* Biru FeelMe utama */
+  --soft-yellow: #fff5da; /* Krim kuning sangat lembut */
+  --rose: #486581;
+  --gd: linear-gradient(135deg, #fcd34d, #f4a228); /* Gradiasi kuning pastel */
+  color-scheme: light;
+  --pat: radial-gradient(1000px 600px at 80% -10%, #e0ebf7 0%, transparent 65%),
+        radial-gradient(800px 500px at -10% 40%, #fff7d6 0%, transparent 60%);
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg) var(--pat);color:var(--ink);line-height:1.55;padding-top:env(safe-area-inset-top,0);min-height:100vh}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.ar{font-family:'Scheherazade New','Amiri',serif;direction:rtl}
+.disp{font-family:'Fraunces',serif}
+main{max-width:640px;margin:0 auto;padding:0 16px calc(110px + env(safe-area-inset-bottom,0px))}
+.tab[hidden]{display:none}
+.top{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;padding:10px 14px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.logo{font-size:18px;color:var(--blue-brand);white-space:nowrap;font-weight:700}
+.pill{flex:1;display:flex;gap:8px;align-items:center;padding:10px 14px;border-radius:999px;background:var(--card);border:1.5px solid var(--mute);color:var(--mute);font-size:14px;text-align:left;box-shadow:0 4px 12px rgba(91,123,178,.06)}
+.ic{width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--line);flex:none}
+@media(max-width:420px){.logo{display:none}}
+.sky{position:relative;margin:14px 0 16px;padding:20px;border-radius:28px;color:var(--ink);overflow:hidden;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;border:1.5px solid rgba(244,162,40,.3);background:linear-gradient(160deg,#e0ebf7,#fdfbf7 80%);box-shadow:0 12px 30px -10px rgba(72,101,129,.1)}
+.hero-t small{color:var(--gold);font-weight:700}
+.hero-t h1{font-size:26px;line-height:1.2;margin:6px 0;color:var(--blue-brand)}
+.hero-t p{font-size:13px;color:var(--mute)}
+.arch{position:relative;width:118px;height:158px;border-radius:999px 999px 14px 14px;border:3px solid var(--blue-brand);overflow:hidden;box-shadow:0 0 0 6px rgba(91,123,178,.15),0 10px 30px rgba(0,0,0,.08);background:linear-gradient(#cadbf2,#5b7bb2)}
+.orb{position:absolute;width:38px;height:38px;border-radius:50%;background:radial-gradient(circle,#ffe082,#f4a228 75%);box-shadow:0 0 32px 10px rgba(244,162,40,.4);transition:all 1s}
+.stars{position:absolute;inset:0;opacity:.6;background-image:radial-gradient(1.5px 1.5px at 20% 30%,#5b7bb2,transparent),radial-gradient(1.5px 1.5px at 70% 20%,#5b7bb2,transparent),radial-gradient(1px 1px at 45% 55%,#5b7bb2,transparent),radial-gradient(1.5px 1.5px at 85% 60%,#5b7bb2,transparent)}
+.ritual{grid-column:1/-1;display:flex;gap:8px}
+.ritual div{flex:1;background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:16px;padding:10px 6px;text-align:center;font-size:11.5px;color:var(--ink)}
+.ritual div.done{background:var(--gd);color:#704200;font-weight:700;border-color:transparent}
+.ritual b{display:block;font-size:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:18px;margin-bottom:12px;backdrop-filter:blur(14px);box-shadow:0 6px 20px rgba(72,101,129,.05)}
+.card h3{font-size:13px;color:var(--blue-brand);margin-bottom:8px;font-weight:700}
+.ayatday .ar{font-size:32px;line-height:2.1;text-align:right;color:#2b425b}
+.btn{padding:10px 18px;border-radius:14px;background:var(--gd);color:#5c3500;font-weight:700;font-size:14px;box-shadow:0 4px 14px rgba(244,162,40,.25)}
+.btn.ghost{background:rgba(72,101,129,.06);color:var(--ink);box-shadow:none;border:1px solid var(--line)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:none}
+.chips.wrap{flex-wrap:wrap;overflow:visible}
+.chip{flex:none;padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--mute)}
+.chip[aria-pressed="true"]{background:var(--blue-brand);color:#fff;border-color:transparent}
+.seg{display:flex;background:rgba(72,101,129,.06);border-radius:16px;padding:4px;margin:16px 0 12px;border:1px solid var(--line)}
+.seg button{flex:1;padding:9px;border-radius:12px;font-weight:700;font-size:13px;color:var(--mute)}
+.seg button[aria-selected="true"]{background:var(--blue-brand);color:#fff}
+.srow{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;background:var(--card);border:1px solid var(--line);border-radius:18px}
+.srow .no{width:44px;height:44px;display:grid;place-items:center;flex:none;font-weight:700;font-size:12px;color:#fff;background:var(--blue-brand);border-radius:12px}
+.srow .m{flex:1}.srow small{display:block;color:var(--mute)}
+.srow .nm{font-size:28px;color:var(--gold)}
+.juz{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.juz button{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 8px;text-align:center}
+.juz b{display:block;font-size:22px;color:var(--blue-brand)}.juz small{color:var(--mute);font-size:11px}
+.rbar{position:sticky;top:61px;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);padding:10px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.rbar h2{font-size:17px;flex:1;min-width:120px;color:var(--blue-brand)}
+.jump{width:76px;padding:8px 10px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:13px}
+.bis{text-align:center;font-size:36px;color:var(--gold);padding:18px 0 8px}
+.ay{padding:16px;margin-bottom:12px;background:var(--card);border:1px solid var(--line);border-radius:22px;scroll-margin-top:150px;transition:all .5s}
+.ay.flash,.ay.play{border-color:var(--gold);box-shadow:0 0 0 3px rgba(244,162,40,.2),0 0 30px rgba(244,162,40,.15)}
+.ay .tp{display:flex;align-items:center;gap:6px;margin-bottom:10px}
+.ay .n{width:34px;height:34px;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff;background:var(--blue-brand);border-radius:10px}
+.ay .ac{margin-left:auto;display:flex;gap:2px}
+.ay .ac button{padding:6px 9px;border-radius:10px;font-size:15px;opacity:.75}
+.ay .ac button.on{opacity:1;background:rgba(91,123,178,.12)}
+.ay .tx{font-size:var(--fs,32px);line-height:2.2;text-align:right;color:#2b425b}
+.ay .lt{color:var(--blue-brand);font-style:italic;font-size:14px;margin-top:8px}
+.ay .id{font-size:15px;margin-top:6px;color:var(--ink)}
+.empty{padding:28px 8px;text-align:center;color:var(--mute)}
+.pick{display:flex;gap:8px;overflow-x:auto;padding:16px 0 10px;scrollbar-width:none}
+.zwrap{text-align:center;padding:6px 0}
+.zwrap .ar{font-size:44px;line-height:1.8;color:var(--gold)}
+.tasbih{position:relative;width:min(290px,78vw);aspect-ratio:1;margin:12px auto;display:block;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.tasbih svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.tasbih circle{fill:none;stroke-width:6;stroke-linecap:round}
+.tasbih .bg{stroke:rgba(72,101,129,.1)}.tasbih .fg{stroke:var(--gold);transition:stroke-dashoffset .25s;filter:drop-shadow(0 0 4px rgba(244,162,40,.4))}
+.tasbih .in{position:absolute;inset:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffffff,var(--card));border:1px solid var(--line);display:grid;place-content:center;transition:transform .08s;box-shadow:inset 0 0 20px rgba(72,101,129,.05)}
+.tasbih:active .in{transform:scale(.95)}
+.tasbih .num{font-size:72px;font-weight:700;line-height:1;color:var(--blue-brand)}
+.tasbih small{color:var(--mute)}
+.zact{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.deck{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:4px 16px 14px;scrollbar-width:none}
+.dc{flex:none;width:86%;scroll-snap-align:center;background:radial-gradient(circle at top right,rgba(244,162,40,.1),transparent),var(--card);border:1px solid rgba(244,162,40,.25);border-radius:26px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.dc b{color:var(--blue-brand)}
+.dc .ar{font-size:32px;line-height:2;text-align:right;color:#2b425b}
+.dc .lt{color:var(--blue-brand);font-style:italic;font-size:14px}
+.dc .af{background:var(--soft-yellow);border:1px dashed var(--gold);border-radius:16px;padding:12px;font-weight:600;font-size:15px;color:#704200}
+.dc .row{display:flex;gap:8px;margin-top:auto;padding-top:6px}
+
+/* ===== GAYA RUANG CURHAT ISLAMI (FEELME) ===== */
+.chat-history{display:flex;flex-direction:column;gap:16px;margin-bottom:20px}
+.chat-bubble-user{align-self:flex-end;background:linear-gradient(135deg,rgba(91,123,178,.15),rgba(224,235,247,.5));border:1.5px solid var(--blue-brand);border-radius:20px 20px 4px 20px;padding:14px 18px;max-width:88%;color:var(--blue-brand);font-size:1rem;font-weight:600}
+.chat-bubble-ai{align-self:flex-start;width:100%}
+textarea.input-curhat{width:100%;background:#ffffff;border:1.5px solid var(--line);border-radius:18px;color:var(--ink);padding:14px;font:inherit;transition:border .2s;resize:vertical;min-height:120px}
+textarea.input-curhat:focus{outline:none;border-color:var(--blue-brand);box-shadow:0 0 0 4px rgba(91,123,178,.15)}
+
+nav.bar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(92vw,460px);z-index:20;display:flex;align-items:center;gap:2px;padding:6px;border-radius:28px;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(16px);border:1.5px solid var(--line);box-shadow:0 10px 30px rgba(72,101,129,.1)}
+nav.bar button{flex:1;padding:7px 2px;border-radius:20px;font-size:11px;font-weight:700;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:2px}
+nav.bar button span{font-size:20px}
+nav.bar button[aria-selected="true"]{background:rgba(91,123,178,.15);color:var(--blue-brand)}
+nav.bar .fab{flex:none;width:58px;height:58px;border-radius:50%;margin:-28px 4px 0;background:var(--gd);color:#5c3500;font-size:24px;box-shadow:0 6px 20px rgba(244,162,40,.35);border:4px solid var(--bg);justify-content:center}
+#sr{position:fixed;inset:0;z-index:60;background:color-mix(in srgb,var(--bg) 95%,transparent);backdrop-filter:blur(16px);overflow-y:auto;padding:calc(14px + env(safe-area-inset-top,0px)) 16px 40px}
+#sr[hidden]{display:none}
+.srbox{max-width:640px;margin:0 auto}
+.srin{display:flex;gap:10px;align-items:center;background:var(--card);border:2px solid var(--blue-brand);border-radius:22px;padding:4px 8px 4px 16px;box-shadow:0 0 0 6px rgba(91,123,178,.12)}
+.srin input{flex:1;border:0;background:
+:none;font:inherit;font-size:17px;color:var(--ink);padding:14px 0;outline:0;min-width:0}
+.srin button{padding:8px 12px;border-radius:12px;background:rgba(0,0,0,.04);font-size:13px;font-weight:700;color:var(--gold)}
+#sr h4{font-size:12px;color:var(--gold);margin:18px 4px 8px;font-weight:700}
+.sri{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px;border-radius:18px;background:var(--card);border:1px solid var(--line);margin-bottom:8px}
+.sri .ico{width:42px;height:42px;border-radius:14px;background:rgba(0,0,0,.04);display:grid;place-items:center;flex:none;font-size:18px}
+.sri small{display:block;color:var(--mute)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
-<body class="min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+<body>
+<header class="top"><div class="logo disp">✦ FeelMe</div><button class="pill" id="openSr"><span>🔎</span>Cari surah, ayat, juz…</button><button class="ic" id="theme" aria-label="Ganti tema" style="display:none">🌙</button></header>
+<main>
 
-    <!-- Header / Navbar -->
-    <header class="w-full py-6 px-8 md:px-16 flex items-center justify-between z-10">
-        <div class="flex items-center space-x-3">
-            <span class="text-2xl font-bold tracking-wide text-blue-900 bg-pastelYellow px-4 py-1.5 rounded-full shadow-sm">
-                ✨ feelme
-            </span>
+<!-- BERANDA -->
+<section class="tab" id="t-home">
+  <div class="sky" id="sky" data-p="day">
+    <div class="hero-t"><small id="hijri"></small><h1 class="disp" id="greet"></h1><p>Temani harimu dengan ketenangan Al-Qur'an dan ruang curhat islami.</p></div>
+    <div class="arch"><div class="stars"></div><div class="orb" id="orb"></div></div>
+    <div class="ritual" id="ritual"></div>
+  </div>
+  <div class="card ayatday">
+    <h3>Ayat untuk hari ini</h3>
+    <div id="adBody"><p class="empty">Memuat ayat…</p></div>
+  </div>
+  <div class="card" id="resumeCard" hidden><h3>Lanjutkan membaca</h3><button class="btn" id="resume"></button></div>
+  <div class="card"><h3>Afirmasi pagi</h3><p class="disp" id="homeAff" style="font-size:20px"></p><button class="btn ghost" id="toDoa" style="margin-top:10px">Lihat semua doa awal hari</button></div>
+</section>
+
+<!-- BACA -->
+<section class="tab" id="t-baca" hidden>
+  <div id="browse">
+    <div class="chips" id="quick"></div>
+    <div class="seg" role="tablist"><button aria-selected="true" data-v="s">Surah</button><button aria-selected="false" data-v="j">Juz</button><button aria-selected="false" data-v="b">Tersimpan</button></div>
+    <div id="bList"></div>
+  </div>
+  <div id="reader" hidden>
+    <div class="rbar">
+      <button class="chip" id="back">← Kembali</button><h2 id="rt"></h2>
+      <input class="jump" id="jump" type="number" min="1" placeholder="Ayat">
+      <button class="chip" id="bLat" aria-pressed="true">Latin</button>
+      <button class="chip" id="bId" aria-pressed="true">Arti</button>
+      <button class="chip" id="fm">A−</button><button class="chip" id="fp">A+</button>
+      <button class="chip" id="pAll">▶ Dengar</button>
+    </div>
+    <div id="ays"></div>
+    <div style="display:flex;justify-content:space-between;margin-top:20px"><button class="btn ghost" id="prev">← Sebelumnya</button><button class="btn" id="next">Berikutnya →</button></div>
+  </div>
+</section>
+
+<!-- ZIKIR -->
+<section class="tab" id="t-zikir" hidden>
+  <div class="pick" id="zpick"></div>
+  <div class="zwrap"><div class="ar" id="zAr"></div><div id="zLt" style="color:var(--mute)"></div></div>
+  <button class="tasbih" id="tas" aria-label="Tambah hitungan">
+    <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="44"/><circle class="fg" id="ring" cx="50" cy="50" r="44" stroke-dasharray="276.46" stroke-dashoffset="276.46"/></svg>
+    <span class="in"><span class="num disp" id="zN">0</span><small id="zT"></small></span>
+  </button>
+  <div class="zact"><button class="btn ghost" id="zu">Kurangi</button><button class="btn ghost" id="zr">Ulang</button><button class="btn ghost" id="zv"></button></div>
+  <p style="text-align:center;color:var(--mute);font-size:14px;margin-top:14px" id="zD"></p>
+</section>
+
+<!-- DOA -->
+<section class="tab" id="t-doa" hidden>
+  <h2 class="disp" style="font-size:24px;margin:22px 0 4px">Doa awal hari</h2>
+  <p style="color:var(--mute);font-size:14px;margin-bottom:14px">Geser kartunya. Baca doanya, lalu ucapkan afirmasinya dengan pelan, seolah berbicara pada dirimu sendiri.</p>
+  <div class="chips"><button class="chip" id="shuf">🎲 Acak untukku</button><button class="chip" id="favOnly" aria-pressed="false">★ Favorit</button></div>
+  <div class="deck" id="deck"></div>
+  <p style="text-align:center;color:var(--mute);font-size:13px" id="sayCnt"></p>
+</section>
+
+<!-- RUANG CURHAT ISLAMI (FEELME) -->
+<section class="tab" id="t-curhat" hidden>
+  <div class="card" style="margin-top: 16px; border-color:rgba(217,119,6,.3)">
+    <h3 id="formTitle">🕊️ Ruang Curhat FeelMe</h3>
+    <p id="formDesc" style="color:var(--mute);font-size:13.5px;margin-bottom:14px">Pilih kategori masalahmu atau tulis langsung. FeelMe siap mendengarkan dan memberi solusi sesuai tuntunan Islam.</p>
+    
+    <!-- Wadah Riwayat Chat Berkelanjutan -->
+    <div id="chatHistory" class="chat-history"></div>
+
+    <form id="chatForm" autocomplete="off">
+      <div id="nameRow" style="margin-bottom:12px">
+        <label style="display:block;font-size:12px;color:var(--mute);margin-bottom:4px;font-weight:600">Mau dipanggil siapa? (opsional)</label>
+        <input class="input" id="nama" maxlength="24" placeholder="mis. Aisyah / Kak Rafi / Hamba Allah" style="width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);font:inherit">
+      </div>
+      
+      <label style="display:block;font-size:12px;color:var(--mute);margin-bottom:6px;font-weight:600">Pilih kategori masalah / perasaanmu:</label>
+      <div class="chips wrap" id="curhatChips" style="margin-bottom:12px"></div>
+
+      <label style="display:block;font-size:12px;color:var(--mute);margin-bottom:6px;font-weight:600">Ceritamu atau balasan:</label>
+      <textarea id="cerita" class="input-curhat" maxlength="1500" placeholder="Tulis apa saja yang sedang kamu rasakan..."></textarea>
+      <p id="hint" style="color:#dc2626;font-size:12px;margin-top:4px"></p>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;flex-wrap:wrap;gap:8px">
+        <span style="font-size:12px;color:var(--mute)"><span id="cnt">0</span> / 1500</span>
+        <div style="display:flex;gap:8px">
+          <button type="button" class="btn ghost" id="resetChatBtn" style="display:none;padding:8px 14px;font-size:13px">Mulai dari Awal</button>
+          <button type="submit" class="btn" id="send" style="padding:10px 20px">Kirim Curhatan ✨</button>
         </div>
+      </div>
+    </form>
+  </div>
+</section>
 
-        <nav class="hidden md:flex items-center space-x-8 bg-white/70 backdrop-blur-md px-6 py-2 rounded-full shadow-sm border border-blue-100">
-            <a href="#" class="flex items-center space-x-1 font-semibold text-blue-900 bg-amber-200/60 px-4 py-1.5 rounded-full shadow-xs">
-                <span>🏠</span><span>Beranda</span>
-            </a>
-            <a href="#" class="flex items-center space-x-1 font-medium text-gray-600 hover:text-blue-900 transition">
-                <span>💬</span><span>Tentang</span>
-            </a>
-            <a href="#" class="flex items-center space-x-1 font-medium text-gray-600 hover:text-blue-900 transition">
-                <span>🛡️</span><span>Privasi</span>
-            </a>
-            <a href="#" class="flex items-center space-x-1 font-medium text-gray-600 hover:text-blue-900 transition">
-                <span>🤍</span><span>Motivasi</span>
-            </a>
-        </nav>
+</main>
+<nav class="bar">
+  <button data-t="home" aria-selected="true"><span>🌅</span>Beranda</button>
+  <button data-t="baca" aria-selected="false"><span>📖</span>Baca</button>
+  <button class="fab" id="fab" aria-label="Cari surah, ayat, juz">🔍</button>
+  <button data-t="zikir" aria-selected="false"><span>📿</span>Zikir</button>
+  <button data-t="doa" aria-selected="false"><span>🤲</span>Doa</button>
+  <button data-t="curhat" aria-selected="false"><span>🤍</span>FeelMe</button>
+</nav>
 
-        <div class="bg-white/70 p-2.5 rounded-full shadow-sm border border-blue-100 cursor-pointer hover:bg-white transition">
-            🌙
+<div id="sr" hidden><div class="srbox"><div class="srin"><span>🔎</span><input id="sq" placeholder="baqarah · 2:255 · yasin 9 · juz 30" autocomplete="off" enterkeyhint="go"><button id="srx">Tutup</button></div><div id="srres"></div></div></div>
+<audio id="au"></audio>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const st={g(k,d){try{const v=localStorage.getItem('cp_'+k);return v===null?d:JSON.parse(v)}catch(e){return d}},s(k,v){try{localStorage.setItem('cp_'+k,JSON.stringify(v))}catch(e){}}};
+const API='https://equran.id/api/v2',today=()=>new Date().toISOString().slice(0,10);
+const cache={};
+async function surat(n){if(cache[n])return cache[n];const r=await fetch(`${API}/surat/${n}`);return cache[n]=(await r.json()).data}
+
+/* ===== tab ===== */
+function go(t){$$('.tab').forEach(x=>x.hidden=x.id!=='t-'+t);$$('nav.bar button[data-t]').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===t));window.scrollTo(0,0)}
+$$('nav.bar button[data-t]').forEach(b=>b.onclick=()=>go(b.dataset.t));
+
+/* ===== Tanggal Hijriah dengan Nama Hari Bahasa Arab Bersih ===== */
+function sky(){
+  const d=new Date(),h=d.getHours()+d.getMinutes()/60,el=$('#sky');
+  if(el){
+    const p=h>=4.5&&h<6.5?'dawn':h>=6.5&&h<16.5?'day':h>=16.5&&h<18.5?'dusk':'night';
+    el.dataset.p=p;
+    const g=p==='night'?'Selamat malam':h<11?'Selamat pagi':h<15?'Selamat siang':'Selamat sore';
+    $('#greet').textContent=g+', semoga harimu tenang.';
+  }
+  try{
+    const arabicDays = ['Al-Ahad', 'Al-Ithnain', 'Ath-Thulatha', 'Al-Arbi\'a', 'Al-Khamis', 'Al-Jumu\'ah', 'As-Sabt'];
+    const dayNameAr = arabicDays[d.getDay()];
+
+    const hijriFmt = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {day:'numeric', month:'long', year:'numeric'});
+    let hDateStr = hijriFmt.format(d);
+    
+    hDateStr = hDateStr.replace(/هـ/g, '').trim();
+    
+    $('#hijri').textContent = `${dayNameAr}, ${hDateStr} هـ`;
+  }catch(e){
+    $('#hijri').textContent = 'Kalender Hijriah';
+  }
+}
+sky();setInterval(sky,60000);
+
+/* ===== ritual pagi ===== */
+let rit=st.g('rit',{d:today(),a:0,z:0,y:0});if(rit.d!==today())rit={d:today(),a:0,z:0,y:0};
+function mark(k){if(!rit[k]){rit[k]=1;st.s('rit',rit);drawRit()}}
+function drawRit(){const r=$('#ritual');if(r)r.innerHTML=[['a','🤲','Ucapkan afirmasi'],['z','📿','Zikir tuntas'],['y','📖','Baca ayat']].map(([k,i,l])=>`<div class="${rit[k]?'done':''}"><b>${rit[k]?'✓':i}</b>${l}</div>`).join('')}
+drawRit();
+
+/* ===== ayat hari ini ===== */
+const AD=[[94,5],[2,286],[13,28],[65,3],[2,152],[3,139],[2,153]];
+const doy=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/864e5),[adS,adA]=AD[doy%AD.length];
+(async()=>{try{const s=await surat(adS),a=s.ayat[adA-1];
+  $('#adBody').innerHTML=`<div class="ar">${a.teksArab}</div><p style="color:#0284c7;font-style:italic;margin-top:4px">${a.teksLatin}</p><p style="margin:6px 0 10px">${a.teksIndonesia}</p><button class="btn" id="adGo">Baca QS. ${s.namaLatin}: ${adA}</button>`;
+  $('#adGo').onclick=()=>{go('baca');openS(adS,adA);mark('y')}}
+ catch(e){$('#adBody').innerHTML='<p class="empty">Ayat belum bisa dimuat. Cek koneksi internetmu.</p>'}})();
+
+/* ===== Al-Qur'an ===== */
+const JUZ=[[1,1],[2,142],[2,253],[3,93],[4,24],[4,148],[5,82],[6,111],[7,88],[8,41],[9,93],[11,6],[12,53],[15,1],[17,1],[18,75],[21,1],[23,1],[25,21],[27,56],[29,46],[33,31],[36,28],[39,32],[41,47],[46,1],[51,31],[58,1],[67,1],[78,1]];
+let S=[],cur=null,view='s',marks=st.g('marks',[]),lat=st.g('lat',true),idn=st.g('id',true),fs=st.g('fs',32),qi=-1;
+const au=$('#au'),norm=x=>x.toLowerCase().replace(/[^a-z0-9]/g,'');
+$('#quick').innerHTML=[['Al-Fatihah',1],['Ayat Kursi','2:255'],['Yasin',36],['Ar-Rahman',55],['Al-Waqiah',56],['Al-Mulk',67],['Al-Kahfi',18],['Juz 30','j30']].map(([l,v])=>`<button class="chip" data-v="${v}">${l}</button>`).join('');
+$$('#quick .chip').forEach(b=>b.onclick=()=>{const v=b.dataset.v;if(v[0]==='j'){setView('j');return}const[m,a]=String(v).split(':');openS(+m,a?+a:0)});
+async function init(){
+  try{S=(await(await fetch(API+'/surat')).json()).data;st.s('S',S)}catch(e){S=st.g('S',[])}
+  if(!S.length){$('#bList').innerHTML='<p class="empty">Daftar surah belum bisa dimuat. Cek koneksi internetmu lalu muat ulang.</p>';return}
+  drawList();resumeUI()}
+function setView(v){view=v;$$('.seg button').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===v));drawList()}
+$$('.seg button').forEach(b=>b.onclick=()=>{setView(b.dataset.v)});
+const srow=(s,a)=>`<button class="srow" data-s="${s.nomor}" data-a="${a||0}"><span class="no"><i>${s.nomor}</i></span><span class="m"><b>${s.namaLatin}${a?' · ayat '+a:''}</b><small>${s.arti} · ${s.jumlahAyat} ayat</small></span><span class="nm ar">${s.nama}</span></button>`;
+function drawList(){
+  const L=$('#bList');if(!L)return;
+  if(view==='s')L.innerHTML=S.map(s=>srow(s)).join('');
+  else if(view==='j')L.innerHTML='<div class="juz">'+JUZ.map(([s,a],i)=>`<button data-s="${s}" data-a="${a}"><b>${i+1}</b><small>${S[s-1]?S[s-1].namaLatin:''} ${a}</small></button>`).join('')+'</div>';
+  else L.innerHTML=marks.map(b=>{const s=S[b.s-1];return s?srow(s,b.a):''}).join('')||'<p class="empty">Belum ada ayat tersimpan. Ketuk 🔖 pada ayat untuk menandainya.</p>';
+  bind()}
+function bind(){$$('#bList [data-s]').forEach(b=>b.onclick=()=>openS(+b.dataset.s,+b.dataset.a))}
+function resumeUI(){const l=st.g('last',null);if(!l||!S[l.s-1]){$('#resumeCard').hidden=true;return}$('#resumeCard').hidden=false;$('#resume').textContent=`${S[l.s-1].namaLatin} · ayat ${l.a}`;$('#resume').onclick=()=>{go('baca');openS(l.s,l.a)}}
+let io=null,lastT=0;
+async function openS(n,a){
+  stop();closeSr();go('baca');$('#browse').hidden=true;$('#reader').hidden=false;$('#ays').innerHTML='<p class="empty">Memuat surah…</p>';
+  try{cur=await surat(n)}catch(e){$('#ays').innerHTML='<p class="empty">Gagal memuat. Cek koneksi internetmu.</p>';return}
+  $('#rt').textContent=`${cur.nomor}. ${cur.namaLatin}`;$('#jump').max=cur.jumlahAyat;drawAy();window.scrollTo(0,0);
+  if(a)setTimeout(()=>jumpTo(a),150)}
+function jumpTo(a){const e=$(`[data-a="${a}"]`);if(!e)return;e.scrollIntoView({block:'start',behavior:'smooth'});e.classList.add('flash');setTimeout(()=>e.classList.remove('flash'),2200)}
+function drawAy(){
+  const bis=cur.nomor!==1&&cur.nomor!==9?'<div class="bis ar">بِسْمِ ٱللّٰهِ ٱلرَّحْمٰنِ ٱلرَّحِيمِ</div>':'';
+  const A=$('#ays');A.style.setProperty('--fs',fs+'px');
+  A.innerHTML=bis+cur.ayat.map(a=>{const b=marks.some(m=>m.s===cur.nomor&&m.a===a.nomorAyat);return`<article class="ay" data-a="${a.nomorAyat}"><div class="tp"><span class="n">${a.nomorAyat}</span><span class="ac"><button data-x="p" aria-label="Dengar">▶</button><button data-x="b" class="${b?'on':''}" aria-label="Tandai">🔖</button><button data-x="c" aria-label="Salin">📋</button></span></div><div class="tx ar">${a.teksArab}</div>${lat?`<div class="lt">${a.teksLatin}</div>`:''}${idn?`<div class="id">${a.teksIndonesia}</div>`:''}</article>`}).join('');
+  $('#bLat').setAttribute('aria-pressed',lat);$('#bId').setAttribute('aria-pressed',idn);
+  $$('.ay').forEach(el=>el.addEventListener('click',e=>{const x=e.target.dataset.x;if(!x)return;const n=+el.dataset.a;
+    if(x==='p'){qi=n-1;play()}
+    if(x==='b'){const i=marks.findIndex(m=>m.s===cur.nomor&&m.a===n);i>=0?marks.splice(i,1):marks.push({s:cur.nomor,a:n});st.s('marks',marks);e.target.classList.toggle('on')}
+    if(x==='c'){const a=cur.ayat[n-1],t=`${a.teksArab}\n${a.teksIndonesia}\n(QS. ${cur.namaLatin}: ${n})`;navigator.clipboard&&navigator.clipboard.writeText(t).then(()=>{e.target.textContent='✅';setTimeout(()=>e.target.textContent='📋',900)})}}));
+  if(io)io.disconnect();
+  io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&Date.now()-lastT>1500){lastT=Date.now();st.s('last',{s:cur.nomor,a:+e.target.dataset.a})}}),{threshold:.7});
+  $$('.ay').forEach(x=>io.observe(x))}
+$('#back').onclick=()=>{stop();$('#reader').hidden=true;$('#browse').hidden=false;resumeUI();window.scrollTo(0,0)};
+$('#bLat').onclick=()=>{lat=!lat;st.s('lat',lat);drawAy()};$('#bId').onclick=()=>{idn=!idn;st.s('id',idn);drawAy()};
+$('#fm').onclick=()=>{fs=Math.max(24,fs-3);st.s('fs',fs);$('#ays').style.setProperty('--fs',fs+'px')};$('#fp').onclick=()=>{fs=Math.min(60,fs+3);st.s('fs',fs);$('#ays').style.setProperty('--fs',fs+'px')};
+$('#jump').onchange=e=>{const a=+e.target.value;if(a>=1&&a<=cur.jumlahAyat)jumpTo(a);e.target.value=''};
+$('#prev').onclick=()=>cur.nomor>1&&openS(cur.nomor-1);$('#next').onclick=()=>cur.nomor<114&&openS(cur.nomor+1);
+function play(){const a=cur.ayat[qi];if(!a){stop();return}$$('.ay').forEach(e=>e.classList.toggle('play',+e.dataset.a===a.nomorAyat));const e=$(`[data-a="${a.nomorAyat}"]`);e&&e.scrollIntoView({block:'center',behavior:'smooth'});au.src=a.audio['05']||Object.values(a.audio)[0];au.play().catch(()=>{});$('#pAll').textContent='⏹ Berhenti'}
+function stop(){au.pause();qi=-1;$$('.ay.play').forEach(e=>e.classList.remove('play'));$('#pAll').textContent='▶ Dengar'}
+au.onended=()=>{qi++;qi<cur.ayat.length?play():stop()};
+$('#pAll').onclick=()=>{if(qi>=0){stop();return}qi=0;play()};
+
+/* ===== Zikir ===== */
+const Z=[['سُبْحَانَ اللّٰهِ','Subhanallah',33],['الْحَمْدُ لِلّٰهِ','Alhamdulillah',33],['اللّٰهُ أَكْبَرُ','Allahu Akbar',33],['أَسْتَغْفِرُ اللّٰهَ','Astaghfirullah',100],['لَا إِلٰهَ إِلَّا اللّٰهُ','La ilaha illallah',100],['اللّٰهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ','Shalawat Nabi',100],['لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰهِ','La hawla wa la quwwata illa billah',100],['سُبْحَانَ اللّٰهِ وَبِحَمْدِهِ','Subhanallahi wa bihamdih',100]];
+let zi=st.g('zi',0),cn=st.g('cn',{}),dz=st.g('dz',{d:today(),n:0}),vib=st.g('vib',true);if(dz.d!==today())dz={d:today(),n:0};
+$('#zpick').innerHTML=Z.map((z,i)=>`<button class="chip" data-i="${i}" aria-pressed="false">${z[1].split(' ').slice(0,2).join(' ')}</button>`).join('');
+$$('#zpick .chip').forEach(b=>b.onclick=()=>{zi=+b.dataset.i;st.s('zi',zi);drawZ()});
+function drawZ(){const[a,l,t]=Z[zi],n=cn[zi]||0;$('#zAr').textContent=a;$('#zLt').textContent=l;$('#zN').textContent=n;$('#zT').textContent='target '+t;
+  $('#ring').style.strokeDashoffset=276.46*(1-Math.min(1,n/t));$$('#zpick .chip').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.i===zi));
+  $('#zD').textContent=`Total zikir hari ini: ${dz.n}`;$('#zv').textContent='Getar: '+(vib?'aktif':'mati')}
+const sv=()=>{st.s('cn',cn);st.s('dz',dz)};
+$('#tas').onclick=()=>{cn[zi]=(cn[zi]||0)+1;dz.n++;const t=Z[zi][2];if(vib&&navigator.vibrate)navigator.vibrate(cn[zi]===t?[80,50,80]:12);if(cn[zi]===t)mark('z');sv();drawZ()};
+$('#zu').onclick=()=>{if(cn[zi]>0){cn[zi]--;dz.n=Math.max(0,dz.n-1);sv();drawZ()}};$('#zr').onclick=()=>{cn[zi]=0;sv();drawZ()};$('#zv').onclick=()=>{vib=!vib;st.s('vib',vib);drawZ()};
+    /* ===== Doa awal hari ===== */
+const D=[
+['Bangun tidur','الْحَمْدُ لِلّٰهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ',"Alhamdulillahilladzi ahyana ba'da ma amatana wa ilaihin-nusyur",'Segala puji bagi Allah yang menghidupkan kami setelah mematikan kami, dan kepada-Nya kami kembali.','Hari ini kesempatan baru. Aku bangun dengan syukur, dan aku mampu menjalaninya selangkah demi selangkah.'],
+['Keluar rumah','بِسْمِ اللّٰهِ تَوَكَّلْتُ عَلَى اللّٰهِ لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰهِ','Bismillah, tawakkaltu alallah, la hawla wa la quwwata illa billah','Dengan nama Allah, aku berserah kepada Allah. Tiada daya dan kekuatan kecuali dengan pertolongan-Nya.','Aku sudah berikhtiar, dan aku tenang menyerahkan hasilnya kepada Allah. Aku tidak sendirian.'],
+['Lapang dada','رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي','Rabbisyrah li shadri wa yassir li amri','Ya Tuhanku, lapangkanlah dadaku dan mudahkanlah urusanku. (QS. Taha: 25–26)','Aku boleh merasa berat, dan aku percaya Allah sanggup melapangkan hatiku dan memudahkan jalanku.'],
+['Saat cemas','حَسْبُنَا اللّٰهُ وَنِعْمَ الْوَكِيلُ',"Hasbunallahu wa ni'mal wakil",'Cukuplah Allah bagi kami, dan Dia sebaik-baik pelindung. (QS. Ali Imran: 173)','Aku tidak harus mengendalikan semuanya. Aku cukup melakukan bagianku, dan Allah mengurus sisanya.'],
+['Hati yang teguh','يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَىٰ دِينِكَ',"Ya muqallibal qulub, tsabbit qalbi ala dinik",'Wahai Yang membolak-balikkan hati, teguhkanlah hatiku di atas agama-Mu.','Perasaanku datang dan pergi, tetapi aku punya pegangan yang menguatkanku.'],
+['Menambah ilmu','رَبِّ زِدْنِي عِلْمًا','Rabbi zidni ilma','Ya Tuhanku, tambahkanlah ilmu kepadaku. (QS. Taha: 114)','Aku boleh belum bisa. Aku sedang belajar, dan setiap langkah kecil tetap berarti.'],
+['Untuk orang tua','رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ','Rabbighfir li wa liwalidayya','Ya Tuhanku, ampunilah aku dan kedua orang tuaku.','Aku mendoakan orang-orang yang kusayang, dan aku juga layak disayangi dan dimaafkan.'],
+['Kebaikan dunia & akhirat','رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ',"Rabbana atina fid-dunya hasanah wa fil akhirati hasanah wa qina adzaban-nar",'Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari azab neraka. (QS. Al-Baqarah: 201)','Aku sedang bertumbuh menjadi versi diriku yang lebih baik, dan aku layak mendapat kebaikan.']];
+let favs=st.g('favs',[]),fo=false,say=st.g('say',{d:today(),n:0});if(say.d!==today())say={d:today(),n:0};
+$('#homeAff').textContent=D[doy%D.length][4];$('#toDoa').onclick=()=>go('doa');
+function drawD(){const L=D.map((d,i)=>[d,i]).filter(([d,i])=>!fo||favs.includes(i));
+  $('#deck').innerHTML=L.map(([d,i])=>`<div class="dc"><b>${d[0]}</b><div class="ar">${d[1]}</div><div class="lt">${d[2]}</div><div>${d[3]}</div><div class="af">💬 ${d[4]}</div><div class="row"><button class="btn" data-s="1">Aku ucapkan ✓</button><button class="btn ghost" data-f="${i}">${favs.includes(i)?'★':'☆'} Favorit</button></div></div>`).join('')||'<p class="empty">Belum ada favorit.</p>';
+  $$('#deck [data-s]').forEach(b=>b.onclick=()=>{say.n++;st.s('say',say);mark('a');if(navigator.vibrate)navigator.vibrate(15);b.textContent='Alhamdulillah ✓';cnt()});
+  $$('#deck [data-f]').forEach(b=>b.onclick=()=>{const i=+b.dataset.f;favs=favs.includes(i)?favs.filter(x=>x!==i):[...favs,i];st.s('favs',favs);drawD()});cnt()}
+const cnt=()=>$('#sayCnt').textContent=say.n?`Kamu sudah mengucapkan ${say.n}x hari ini 🤍`:'';
+$('#shuf').onclick=()=>{const c=$$('#deck .dc');if(c.length)c[Math.floor(Math.random()*c.length)].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})};
+$('#favOnly').onclick=e=>{fo=!fo;e.target.setAttribute('aria-pressed',fo);drawD()};
+
+/* ===== DATABASE PINTAR FEELME (DENGAN KATEGORI LENGKAP) ===== */
+const V_CF={
+ insyirah:{ar:"فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا",id:"Sesungguhnya bersama kesulitan ada kemudahan. Sekali lagi, sesungguhnya bersama kesulitan ada kemudahan.",ref:"QS. Al-Insyirah: 5–6"},
+ baqarah286:{ar:"لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا",id:"Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya.",ref:"QS. Al-Baqarah: 286"},
+ raad28:{ar:"أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ",id:"Ingatlah, hanya dengan mengingat Allah hati menjadi tenteram.",ref:"QS. Ar-Ra'd: 28"},
+ taubah40:{ar:"لَا تَحْزَنْ إِنَّ اللَّهَ مَعَنَا",id:"Jangan bersedih, sesungguhnya Allah bersama kita.",ref:"QS. At-Taubah: 40"},
+ duha3:{ar:"مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ",id:"Tuhanmu tidak meninggalkanmu dan tidak pula membencimu.",ref:"QS. Ad-Duha: 3"},
+ rum21:{ar:"وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً",id:"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.",ref:"QS. Ar-Rum: 21"},
+ yusuf86:{ar:"إِنَّمَا أَشْكُو بَثِّي وَحُزْنِي إِلَى اللَّهِ",id:"Sesungguhnya aku hanya mengadukan kesusahan dan kesedihanku hanya kepada Allah.",ref:"QS. Yusuf: 86"},
+ ibrahim7:{ar:"لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ",id:"Jika kamu bersyukur, niscaya Aku akan menambah nikmat kepadamu.",ref:"QS. Ibrahim: 7"},
+ imran200:{ar:"يَا أَيُّهَا الَّذِينَ آمَنُوا اصْبِرُوا وَصَابِرُوا وَرَابِطُوا وَاتَّقُوا اللَّهَ لَعَلَّكُمْ تُفْلِحُونَ",id:"Wahai orang-orang yang beriman! Bersabarlah kamu dan kuatkanlah kesabaranmu, tetaplah bersiap siaga dan bertakwalah kepada Allah agar kamu beruntung.",ref:"QS. Ali 'Imran: 200"},
+ talaq:{ar:"وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا ۝ وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ",id:"Barang siapa bertakwa kepada Allah, niscaya Dia akan membukakan jalan keluar baginya dan memberinya rezeki dari arah yang tidak disangka-sangka.",ref:"QS. At-Talaq: 2–3"},
+ anahl97:{ar:"مَنْ عَمِلَ صَالِحًا مِّن ذَكَرٍ أَوْ أُنثَىٰ وَهُوَ مُؤْمِنٌ فَلَمُنَحْيِيَنَّهُ حَيَاةً طَيِّبَةً",id:"Barang siapa mengerjakan kebajikan, baik laki-laki maupun perempuan dalam keadaan beriman, maka pasti akan Kami berikan kepadanya kehidupan yang baik.",ref:"QS. An-Nahl: 97"},
+ imran134:{ar:"وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ",id:"(Yaitu) orang-orang yang menahan amarahnya dan memaafkan kesalahan orang lain.",ref:"QS. Ali 'Imran: 134"},
+ syuara80:{ar:"وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ",id:"Dan apabila aku sakit, Dialah yang menyembuhkanku.",ref:"QS. Ash-Shu'ara: 80"},
+ alhujurat13:{ar:"إِنَّ أَكْرَمَكُمْ عِندَ اللَّهِ أَتْقَاكُمْ",id:"Sesungguhnya yang paling mulia di antara kamu di sisi Allah ialah orang yang paling bertakwa.",ref:"QS. Al-Hujurat: 13"},
+ israkewajiban:{ar:"وَأَقِمِ الصَّلَاةَ طَرَفَيِ النَّهَارِ وَزُلَفًا مِّنَ الَّيْلِ",id:"Dan laksanakanlah salat pada kedua ujung siang (pagi dan petang) dan pada bagian permulaan malam.",ref:"QS. Hud: 114"}
+};
+
+const H_CF={
+ musibah:{t:"Tidaklah seorang muslim ditimpa kelelahan, sakit, kekhawatiran, kesedihan, gangguan, sampai duri yang menusuknya, kecuali Allah menghapus sebagian kesalahannya dengan itu.",r:"HR. Bukhari & Muslim"},
+ cinta:{t:"Sebaik-baik kalian adalah yang paling baik terhadap keluarganya, dan aku adalah yang paling baik di antara kalian terhadap keluargaku.",r:"HR. Tirmidzi"},
+ sabar:{t:"Sungguh menakjubkan urusan seorang mukmin. Semua urusannya adalah kebaikan baginya.",r:"HR. Muslim"},
+ syukur:{t:"Barang siapa tidak mensyukuri yang sedikit, maka ia tidak akan mampu mensyukuri sesuatu yang banyak.",r:"HR. Ahmad"},
+ marah:{t:"Orang kuat bukanlah yang menang dalam gulat, tetapi orang yang mampu mengendalikan dirinya ketika marah.",r:"HR. Bukhari & Muslim"},
+ hakmuslim:{t:"Hak seorang muslim atas muslim lainnya ada enam... Jika ia mengundangmu, penuhilah; dan jika ia meminta nasihat kepadamu, berilah nasihat.",r:"HR. Muslim"},
+ sakit:{t:"Hilanglah penyakit ini, wahai Tuhan manusia, sembuhkanlah, Engkau Maha Penyembuh, tidak ada kesembuhan selain kesembuhan-Mu.",r:"HR. Bukhari & Muslim"}
+};
+
+const D_CF={
+ hamm:{ar:"اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ",lat:"Allahumma inni a'udzu bika minal hammi wal hazan.",arti:"Ya Allah, aku berlindung kepada-Mu dari rasa sedih dan gelisah.",ref:"HR. Bukhari"},
+ sabardoa:{ar:"رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَتَوَفَّنَا مُسْلِمِينَ",lat:"Rabbana afrigh 'alaina shabran wa tawaffana muslimin.",arti:"Ya Tuhan kami, limpahkanlah kesabaran kepada kami dan matikanlah kami dalam keadaan berserah diri.",ref:"QS. Al-A'raf: 126"},
+ sakitdoa:{ar:"أَذْهِبِ الْبَأسَ رَبَّ النَّاسِ، وَاشْفِ أَنْتَ الشَّافِي",lat:"Adzhibil ba'sa rabban-nasi, wasyfi antasy-syafi.",arti:"Tuhanku manusia, hilangkanlah penyakit ini dan sembuhkanlah, Engkau Maha Penyembuh.",ref:"HR. Bukhari"}
+};
+
+const C_CF={
+ cemas:{label:"Cemas",chip:"Cemas",
+  hug:["Rasa cemas hadir saat pikiran melompat jauh ke masa depan yang belum terjadi. Kembalikan hatimu pada detik ini bersama Allah."],
+  ayat:["raad28","taubah40"],hadis:["musibah"],doa:["hamm"],
+  steps:["Tarik napas perlahan, hembuskan perlahan, sadari bahwa Allah menguasai hari esok.", "Fokus pada apa yang bisa kamu kendalikan hari ini saja."],
+  affirm:"Aku tenang karena Allah yang mengatur masa depanku dengan sebaik-baik takdir."},
+ minder:{label:"Minder",chip:"Minder",
+  hug:["Merasa kurang dibanding orang lain adalah hal wajar, tapi ingatlah bahwa kemuliaan di sisi Allah dinilai dari ketakwaan, bukan rupa atau harta."],
+  ayat:["alhujurat13","duha3"],hadis:["musibah"],doa:["hamm"],
+  steps:["Syukuri bentuk diri dan potensi unik yang Allah titipkan padamu.", "Berhenti membandingkan perjalananmu dengan pencapaian orang lain."],
+  affirm:"Aku berharga apa adanya di mata Allah. Versi terbaikku adalah diriku sendiri."},
+ khawatir:{label:"Khawatir",chip:"Khawatir",
+  hug:["Kekhawatiran adalah doa agar hal buruk terjadi. Alihkan rasa khawatirmu menjadi tawakal dan doa penuh harap kepada-Nya."],
+  ayat:["talaq","raad28"],hadis:["musibah"],doa:["hamm"],
+  steps:["Tuliskan apa yang kamu khawatirkan, lalu lepaskan satu per satu lewat sujud.", "Lakukan ikhtiar terbaikmu, selebihnya serahkan kepada Yang Maha Mengatur."],
+  affirm:"Cukuplah Allah sebagai pelindungku. Aku aman dalam penjagaan-Nya."},
+ gelisah:{label:"Gelisah",chip:"Gelisah",
+  hug:["Gelisah adalah alarm hati bahwa ruhmu sedang merindukan ketenangan zikir kepada Sang Pencipta."],
+  ayat:["raad28","insyirah"],hadis:["musibah"],doa:["hamm"],
+  steps:["Ambil air wudu, bentangkan sajadah, dan curhatlah sepuasnya dalam salat dua rakaat.", "Baca istigfar berulang-ulang sampai dadaku kembali longgar."],
+  affirm:"Hatiku tenteram karena senantiasa mengingat Allah."},
+ sakit:{label:"Sakit",chip:"Sakit",
+  hug:["Rasa sakit fisik maupun lelah yang kamu rasakan hari ini adalah bentuk kasih sayang Allah untuk menggugurkan dosa-dosamu."],
+  ayat:["syuara80","baqarah286"],hadis:["sakit"],doa:["sakitdoa"],
+  steps:["Perbanyak istirahat total dan ikhtiarkan pengobatan yang tepat.", "Letakkan tanganmu di bagian yang sakit, lalu baca doa kesembuhan dengan penuh keyakinan."],
+  affirm:"Ya Allah, jadikan sakitku ini pelebur dosa dan kembalikan aku pada kesehatan terbaik-Mu."},
+ sabar:{label:"Sabar",chip:"Sabar",
+  hug:["Kamu sedang berada di tangga ujian kesabaran yang mulia. Allah sedang menyiapkan kejutan indah bagi hamba-Nya yang tabah."],
+  ayat:["imran200","baqarah286"],hadis:["sabar"],doa:["sabardoa"],
+  steps:["Tarik napas dalam, sadari bahwa setiap kesulitan pasti ada batasnya.", "Fokus melangkah satu hari demi satu hari dengan ikhlas."],
+  affirm:"Bersabar sedikit lagi, pertolongan Allah itu amat dekat."},
+ kewajiban:{label:"Kewajiban sebagai Umat Islam",chip:"Kewajiban Umat Islam",
+  hug:["Menjalankan perintah dan kewajiban agama terkadang melelahkan, namun di sanalah letak kehormatan dan kemuliaan seorang hamba."],
+  ayat:["israkewajiban","baqarah286"],hadis:["musibah"],doa:["hamm"],
+  steps:["Tunaikan kewajiban wajib terlebih dahulu dengan niat ikhlas karena Allah.", "Jangan membebani diri di luar batas, lakukan secara konsisten (istiqamah)."],
+  affirm:"Aku bangga menunaikan kewajibanku sebagai hamba Allah."},
+ hakmuslim:{label:"Hak Umat Islam",chip:"Hak Umat Islam",
+  hug:["Menjaga hak sesama muslim seperti persaudaraan, saling menasihati, dan tolong-menolong adalah pilar kekuatan umat Islam."],
+  ayat:["imran134"],hadis:["hakmuslim"],doa:["hamm"],
+  steps:["Tebarkan salam, penuhi undangan kebaikan, dan jaga lisanmu dari menyakiti sesama.", "Tolong saudaramu yang sedang kesulitan dengan senyuman dan doa."],
+  affirm:"Aku menebar kasih sayang dan menghormati hak sesama saudara seiman."},
+ 'rumah tangga':{label:"Rumah Tangga",chip:"Rumah Tangga",
+  hug:["Mengarungi bahtera rumah tangga butuh kerja sama, komunikasi lembut, dan kesabaran ganda dari kedua belah pihak."],
+  ayat:["rum21","imran134"],hadis:["cinta"],doa:["sabardoa"],
+  steps:["Bicarakan masalah dengan kepala dingin tanpa saling menyalahkan.", "Perbanyak doa malam agar keharmonisan selalu dijaga oleh Allah."],
+  affirm:"Rumah tanggaku dinaungi kedamaian dan rahmat Allah."},
+ keluarga:{label:"Keluarga",chip:"Keluarga",
+  hug:["Keluarga adalah tempat pulang ternyaman, meskipun terkadang ada gesekan dan ujian di dalamnya. Sabarlah dalam berbakti."],
+  ayat:["yusuf86"],hadis:["musibah"],doa:["hamm"],
+  steps:["Luangkan waktu untuk mendengarkan keluh kesah anggota keluarga.", "Tahan emosi dan balas perkataan kasar dengan kelembutan."],
+  affirm:"Keluargaku adalah ladang pahala dan sumber keberkahanku."},
+ rezeki:{label:"Rezeki",chip:"Rezeki",
+  hug:["Urusan rezeki sering bikin cemas. Ingatlah bahwa Allah yang mengatur takaran rezeki seluruh makhluk-Nya dengan adil."],
+  ayat:["talaq"],hadis:["musibah"],doa:["hamm"],
+  steps:["Perbanyak istigfar dan sempurnakan ikhtiar yang halal.", "Syukuri setiap rupiah yang datang, karena barokah lebih utama dari jumlah."],
+  affirm:"Rezekiku tidak akan tertukar. Allah Maha Mencukupkan."},
+ sedih:{label:"Sedih",chip:"Sedih",
+  hug:["Pelan-pelan dulu ya. Sedih bukan tanda imanmu kurang. Nabi ﷺ sendiri pernah menangis dan bersedih. Ada Allah yang mendengar."],
+  ayat:["taubah40","duha3"],hadis:["musibah"],doa:["hamm"],
+  steps:["Izinkan dirimu menangis untuk meluapkan penat di dada.", "Ambil wudu dan adukan semua gundahmu dalam sujud panjang."],
+  affirm:"Aku boleh bersedih, dan Allah selalu menjaga hatiku."},
+ marah:{label:"Marah",chip:"Marah",
+  hug:["Emosimu sangat wajar karena ada hal yang menyakitkan. Kita redakan dulu panas di dada sebelum mengambil keputusan."],
+  ayat:["imran134","fussilat34"],hadis:["marah"],doa:["sabardoa"],
+  steps:["Ucapkan A'udzubillah dan segera ubah posisi (duduk atau berbaring).", "Diam sejenak sampai pikiran jernih kembali."],
+  affirm:"Aku memilih tenang, karena kemarahan tidak menyelesaikan masalah."},
+ bahagia:{label:"Bahagia",chip:"Bahagia",
+  hug:["Alhamdulillah! Kebahagiaan adalah anugerah terindah. Nikmati momen ini dengan penuh rasa syukur kepada Sang Pemberi Nikmat."],
+  ayat:["ibrahim7","anahl97"],hadis:["syukur"],doa:["hamm"],
+  steps:["Ucapkan Alhamdulillah dan bagikan kebahagiaanmu lewat senyuman atau kebaikan.", "Gunakan energi positif ini untuk hal-hal yang bermanfaat."],
+  affirm:"Bahagia ini milik Allah, dan aku bersyukur atas karunia-Nya."},
+ bersyukur:{label:"Bersyukur",chip:"Bersyukur",
+  hug:["Hati yang bersyukur adalah magnet datangnya nikmat-nikmat baru yang lebih berkah dari Allah."],
+  ayat:["ibrahim7"],hadis:["syukur"],doa:["hamm"],
+  steps:["Sebutkan 3 hal kecil yang kamu syukuri hari ini.", "Tunjukkan rasa syukurmu dengan berbuat baik kepada orang lain."],
+  affirm:"Nikmat sekecil apa pun adalah hadiah terindah dari Allah."},
+ cinta:{label:"Cinta",chip:"Cinta",
+  hug:["Urusan hati dan perasaan memang membuat hidup berwarna. Libatkan Allah dalam setiap rasa cinta yang kamu miliki."],
+  ayat:["rum21"],hadis:["cinta"],doa:["hamm"],
+  steps:["Cintai sesuatu secara wajar, dan gantungkan hati sepenuhnya kepada Sang Pencipta.", "Doakan kebaikan untuk orang yang kamu sayangi dalam diam."],
+  affirm:"Hatiku tenang karena cinta pada-Allah adalah yang utama."},
+ rindu:{label:"Rindu",chip:"Rindu",
+  hug:["Rindu adalah rasa cinta yang terhalang jarak atau waktu. Jadikan ia doa tulus yang mengetuk pintu langit."],
+  ayat:["duha3","taubah40"],hadis:["musibah"],doa:["hamm"],
+  steps:["Ubah rasa rindumu menjadi doa terbaik untuknya di sepertiga malam.", "Alihkan sibukmu pada hal-hal produktif sambil menanti takdir."],
+  affirm:"Rinduku bernilai pahala ketika kusampaikan lewat doa pada-Nya."},
+ kehilangan:{label:"Kehilangan",chip:"Kehilangan",
+  hug:["Kehilangan adalah ujian terberat. Air matamu adalah saksi tulusnya cintamu. Bersabarlah, Allah bersama orang sabar."],
+  ayat:["yusuf86","baqarah286"],hadis:["musibah"],doa:["sabardoa"],
+  steps:["Biarkan dirimu berproses melewati duka tanpa terburu-buru harus kuat.", "Kirimkan doa-doa tulus karena doa adalah jembatan cinta abadi."],
+  affirm:"Mereka milik Allah, dan kepada-Nya kita kembali. Allah menjaga hatiku."},
+ umum:{label:"Curhat Umum",chip:"Umum",
+  hug:["Kadang hati terasa penuh dan sulit dinamai. Tidak apa-apa, ceritakan saja apa yang sedang mengganjal di hatimu."],
+  ayat:["insyirah","raad28"],hadis:["musibah"],doa:["hamm"],
+  steps:["Tuliskan apa yang kamu rasakan tanpa menghakimi diri sendiri.", "Ambil jeda sebentar untuk menarik napas dan menenangkan diri."],
+  affirm:"Hatiku boleh lelah, tapi Allah selalu dekat."}
+};
+
+function analyzeChat(raw, chips){
+  const n=' '+raw.toLowerCase()+' ';
+  if(chips.includes('cemas')||/(cemas|panic|khawatir berlebih|takut)/.test(n)) return C_CF.cemas;
+  if(chips.includes('minder')||/(minder|insecure|kurang percaya diri|minderan)/.test(n)) return C_CF.minder;
+  if(chips.includes('khawatir')||/(khawatir|waswas|ragu)/.test(n)) return C_CF.khawatir;
+  if(chips.includes('gelisah')||/(gelisah|resah|tidak tenang)/.test(n)) return C_CF.gelisah;
+  if(chips.includes('sakit')||/(sakit|demam|flu|batuk|pusing|nyeri|sakit badan)/.test(n)) return C_CF.sakit;
+  if(chips.includes('sabar')||/(sabar|tabah|ujian|cobaan)/.test(n)) return C_CF.sabar;
+  if(chips.includes('kewajiban')||/(kewajiban|ibadah|shalat|puasa|perintah)/.test(n)) return C_CF.kewajiban;
+  if(chips.includes('hakmuslim')||/(hak|saudara|muslim|sesama)/.test(n)) return C_CF.hakmuslim;
+  if(chips.includes('rumah tangga')||/(suami|istri|nikah|rumah tangga)/.test(n)) return C_CF['rumah tangga'];
+  if(chips.includes('keluarga')||/(ortu|ayah|ibu|keluarga|anak)/.test(n)) return C_CF.keluarga;
+  if(chips.includes('rezeki')||/(rezeki|uang|duit|kerja|gaji)/.test(n)) return C_CF.rezeki;
+  if(chips.includes('sedih')||/(sedih|nangis|galau|kecewa)/.test(n)) return C_CF.sedih;
+  if(chips.includes('marah')||/(marah|kesal|berantem|emosi)/.test(n)) return C_CF.marah;
+  if(chips.includes('bahagia')||/(bahagia|senang|gembira|ceria)/.test(n)) return C_CF.bahagia;
+  if(chips.includes('bersyukur')||/(syukur|alhamdulillah)/.test(n)) return C_CF.bersyukur;
+  if(chips.includes('cinta')||/(cinta|sayang|pacar|suka)/.test(n)) return C_CF.cinta;
+  if(chips.includes('rindu')||/(rindu|kangen)/.test(n)) return C_CF.rindu;
+  if(chips.includes('kehilangan')||/(hilang|meninggal|wafat|pergi)/.test(n)) return C_CF.kehilangan;
+  return C_CF.umum;
+}
+    const curhatChipsContainer=$('#curhatChips');
+if(curhatChipsContainer){
+  [
+    ['cemas','Cemas'],
+    ['minder','Minder'],
+    ['khawatir','Khawatir'],
+    ['gelisah','Gelisah'],
+    ['sakit','Sakit'],
+    ['sabar','Sabar'],
+    ['kewajiban','Kewajiban Umat Islam'],
+    ['hakmuslim','Hak Umat Islam'],
+    ['rumah tangga','Rumah Tangga'],
+    ['keluarga','Keluarga'],
+    ['rezeki','Rezeki'],
+    ['sedih','Sedih'],
+    ['marah','Marah'],
+    ['bahagia','Bahagia'],
+    ['bersyukur','Bersyukur'],
+    ['cinta','Cinta'],
+    ['rindu','Rindu'],
+    ['kehilangan','Kehilangan']
+  ].forEach(([k, lbl])=>{
+    const btn=document.createElement('button');
+    btn.type='button'; btn.className='chip'; btn.dataset.id=k; btn.setAttribute('aria-pressed','false');
+    btn.textContent=lbl;
+    btn.onclick=()=>btn.setAttribute('aria-pressed',btn.getAttribute('aria-pressed')==='true'?'false':'true');
+    curhatChipsContainer.appendChild(btn);
+  });
+}
+
+const ceritaTa=$('#cerita'), cntSpan=$('#cnt'), hintP=$('#hint');
+if(ceritaTa){
+  ceritaTa.addEventListener('input',()=>{if(cntSpan)cntSpan.textContent=ceritaTa.value.length;if(hintP)hintP.textContent=''});
+}
+
+const chatForm=$('#chatForm');
+if(chatForm){
+  chatForm.addEventListener('submit',e=>{
+    e.preventDefault();
+    const text=ceritaTa.value.trim(), chips=[...curhatChipsContainer.querySelectorAll('[aria-pressed="true"]')].map(c=>c.dataset.id);
+    if(text.length<3&&!chips.length){if(hintP)hintP.textContent='Tuliskan sesuatu atau pilih kategori dulu ya...';return}
+    
+    const cat=analyzeChat(text, chips);
+    const historyBox=$('#chatHistory');
+    historyBox.hidden=false;
+
+    // Tambah Bubble User
+    const userB=document.createElement('div');
+    userB.className='chat-bubble-user';
+    userB.textContent=text;
+    historyBox.appendChild(userB);
+
+    // Tambah Bubble AI (FeelMe) yang sesuai kategori
+    const aiB=document.createElement('div');
+    aiB.className='chat-bubble-ai';
+    const ayObj=V_CF[cat.ayat[0]]||V_CF.insyirah;
+    const hdObj=H_CF[cat.hadis[0]]||H_CF.musibah;
+    const doObj=D_CF[cat.doa[0]]||D_CF.hamm;
+
+    aiB.innerHTML=`
+      <div class="card" style="border-color:var(--gold);margin-top:8px">
+        <h3 style="color:var(--gold)">✦ Solusi FeelMe untuk: ${cat.label}</h3>
+        <p style="margin-bottom:12px">${cat.hug[0]}</p>
+        <div style="background:rgba(0,0,0,.03);border:1px solid var(--line);padding:14px;border-radius:16px;margin-bottom:12px">
+          <div class="ar" style="font-size:24px;line-height:2.1">${ayObj.ar}</div>
+          <p style="font-size:14px;margin-top:6px;color:var(--ink)">${ayObj.id}</p>
+          <p style="font-size:12px;color:var(--gold);margin-top:4px;font-weight:700">${ayObj.ref}</p>
         </div>
-    </header>
-
-    <!-- Main Content Area -->
-    <main class="flex-grow flex flex-col items-center justify-center text-center px-4 md:px-8 relative z-10 -mt-10">
-        
-        <!-- Hero Section (Tampil awal sebelum curhat) -->
-        <div id="heroSection" class="w-full flex flex-col items-center">
-            <div class="relative max-w-2xl mx-auto">
-                <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 tracking-tight mb-4">
-                    feelme
-                </h1>
-                <div class="inline-block bg-amber-200/80 text-blue-900 font-semibold px-6 py-2 rounded-full shadow-xs text-sm md:text-base mb-6 transform -rotate-1">
-                    Cerita di sini, temukan maknanya. 🤍
-                </div>
-            </div>
-
-            <p class="text-gray-600 text-sm md:text-base max-w-md mx-auto mb-8 font-medium">
-                Curhat apa pun yang kamu rasakan, dan temukan pengingat dari Al-Qur'an dan hadis.
-            </p>
-
-            <!-- Input Box Curhat Awal -->
-            <div class="w-full max-w-xl bg-white rounded-full shadow-lg border border-blue-100 p-2 flex items-center mb-6 transition-all focus-within:ring-2 focus-within:ring-amber-300">
-                <div class="pl-4 text-gray-400 text-xl">💬</div>
-                <input type="text" id="initialInput" placeholder="Aku sedang merasa ..." 
-                       class="w-full px-4 py-3 bg-transparent focus:outline-none text-gray-700 placeholder-gray-400 text-sm md:text-base">
-                <button onclick="startChat()" class="bg-amber-300 hover:bg-amber-400 text-blue-900 p-3 rounded-full transition shadow-sm flex items-center justify-center cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                    </svg>
-                </button>
-            </div>
-
-            <div class="inline-flex items-center space-x-2 bg-white/80 border border-blue-100 px-4 py-1.5 rounded-full text-xs text-gray-500 shadow-xs">
-                <span>🔒</span>
-                <span>Privasi kamu aman bersama kami</span>
-                <span class="text-rose-400">🤍</span>
-            </div>
+        <div style="background:rgba(0,0,0,.02);padding:12px;border-radius:14px;margin-bottom:12px;font-size:13.5px">
+          <p style="color:#0284c7;font-style:italic">"${hdObj.t}"</p>
+          <p style="font-size:11.5px;color:var(--mute);margin-top:4px">${hdObj.r}</p>
         </div>
+        <div style="font-size:13.5px;font-weight:700;color:var(--gold);margin-bottom:6px">💡 Langkah kecil untukmu:</div>
+        <ul style="margin:0 0 12px 18px;font-size:13.5px;color:var(--ink);display:grid;gap:4px"><li>${cat.steps[0]}</li><li>${cat.steps[1]}</li></ul>
+        <p style="text-align:center;font-style:italic;color:#b45309;font-size:15px;background:rgba(217,119,6,.08);padding:10px;border-radius:12px">“${cat.affirm}”</p>
+      </div>
+    `;
+    historyBox.appendChild(aiB);
+    ceritaTa.value=''; if(cntSpan)cntSpan.textContent='0';
+    curhatChipsContainer.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
+    $('#resetChatBtn').style.display='inline-flex';
+    aiB.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+}
 
-        <!-- Chat Room Section (Muncul setelah
-  
+const resetBtn=$('#resetChatBtn');
+if(resetBtn){
+  resetBtn.onclick=()=>{
+    $('#chatHistory').innerHTML='';
+    $('#resetChatBtn').style.display='none';
+    if(ceritaTa)ceritaTa.value='';
+  };
+}
+
+/* ===== Pencarian global ===== */
+const QK=[['Al-Fatihah',1,0],['Ayat Kursi',2,255],['Yasin',36,0],['Ar-Rahman',55,0],['Al-Waqiah',56,0],['Al-Mulk',67,0],['Al-Kahfi',18,0]];
+let rec=st.g('rec',[]);
+function openSr(){const sr=$('#sr');if(sr){sr.hidden=false;$('#sq').value='';drawSr();setTimeout(()=>$('#sq').focus(),60)}}
+function closeSr(){const sr=$('#sr');if(sr)sr.hidden=true}
+const openSrBtn=$('#openSr'), fabBtn=$('#fab'), srxBtn=$('#srx');
+if(openSrBtn)openSrBtn.onclick=openSr; if(fabBtn)fabBtn.onclick=openSr; if(srxBtn)srxBtn.onclick=closeSr;
+const sqInput=$('#sq');
+if(sqInput){
+  sqInput.oninput=drawSr;
+  sqInput.onkeydown=e=>{if(e.key==='Enter'){const f=$('#srres .sri');if(f)f.click()}};
+}
+addEventListener('keydown',e=>{if(e.key==='Escape')closeSr();if(e.key==='/'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();openSr()}});
+const sri=(i,t,sub,s,a)=>`<button class="sri" data-s="${s}" data-a="${a||0}"><span class="ico">${i}</span><span><b>${t}</b><small>${sub}</small></span></button>`;
+function drawSr(){
+  const q=$('#sq').value.trim().toLowerCase(),R=$('#srres');if(!R)return;let h='';
+  if(!q){
+    h+='<h4>Pintasan</h4><div class="chips wrap">'+QK.map(([l,s,a])=>`<button class="chip" data-s="${s}" data-a="${a}">${l}</button>`).join('')+'</div>';
+    h+='<h4>Lompat ke juz</h4><div class="chips wrap">'+JUZ.map(([s,a],i)=>`<button class="chip" data-s="${s}" data-a="${a}">${i+1}</button>`).join('')+'</div>';
+    if(rec.length)h+='<h4>Terakhir dicari</h4>'+rec.map(r=>sri('🕘',r.t,'Buka lagi',r.s,r.a)).join('');
+    h+='<p class="empty">Contoh: <b>baqarah</b>, <b>2:255</b>, <b>yasin 9</b>, <b>juz 30</b>, atau nomor surah.</p>';
+  }else if(S.length){
+    let m=q.match(/^j(?:uz)?\s*(\d{1,2})$/);
+    if(m&&+m[1]>=1&&+m[1]<=30){const[j,a]=JUZ[m[1]-1];h+=sri('🧭',`Juz ${m[1]}`,`Mulai ${S[j-1].namaLatin} ayat ${a}`,j,a)}
+    m=q.match(/^(\d{1,3})\s*[: ]\s*(\d{1,3})$/);
+    if(m){const s=S[m[1]-1];if(s&&+m[2]>=1&&+m[2]<=s.jumlahAyat)h+=sri('🎯',`QS. ${s.namaLatin}: ${m[2]}`,'Langsung ke ayat ini',s.nomor,+m[2])}
+    let name=q,ay=0;m=q.match(/^(.*?)\s+(\d{1,3})$/);if(m&&isNaN(m[1])){name=m[1];ay=+m[2]}
+    const n=name.replace(/[^a-z0-9]/g,'');
+    S.filter(s=>String(s.nomor)===q||(n&&(s.namaLatin.toLowerCase().replace(/[^a-z0-9]/g,'').includes(n)||s.arti.toLowerCase().replace(/[^a-z0-9]/g,'').includes(n)))).slice(0,10).forEach(s=>{const a=ay&&ay<=s.jumlahAyat?ay:0;h+=sri('📖',`${s.namaLatin}${a?' · ayat '+a:''}`,`${s.arti} · ${s.jumlahAyat} ayat`,s.nomor,a)});
+    if(/^\d{1,2}$/.test(q)&&+q>=1&&+q<=30)h+=sri('🧭',`Juz ${q}`,'Buka awal juz',JUZ[q-1][0],JUZ[q-1][1]);
+    if(!h)h='<p class="empty">Tidak ketemu. Coba nama surahnya saja, mis. "kahfi".</p>';
+  }else h='<p class="empty">Data surah belum termuat. Cek koneksi internetmu.</p>';
+  R.innerHTML=h;
+  $$('#srres [data-s]').forEach(b=>b.onclick=()=>{const s=+b.dataset.s,a=+b.dataset.a,t=(S[s-1]?S[s-1].namaLatin:'Surah '+s)+(a?' : '+a:'');rec=[{t,s,a},...rec.filter(r=>r.t!==t)].slice(0,5);st.s('rec',rec);closeSr();openS(s,a)});
+}
+drawZ();drawD();init();
+</script>
+</body>
+</html>
